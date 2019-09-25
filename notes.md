@@ -55,3 +55,16 @@ ESLint package.json options:
 - "root": true specifies the ESLint config in package.json applies to that project only
 
 # React component approaches
+
+- createClass (mostly out of use - React.createClass({ ... }))
+- ES class (class extends React.Component)
+- Function (function HelloWorld(props) { ... })
+- Arrow function ( const foo = (props) => <>..</> )
+
+Functional component benefits:
+Easier to understand; Avoid "this" keyword; Less transpiled code; High signal-to-noise ratio; Easy to test / performance; Classes may be removed in future due to React Hooks
+
+Container (smart) components have state and little to no DOM markup - they typically pass data and actions down and know about Redux
+Presentation (dumb) components are nearly all markup with often no state - receive data / actions via props - know nothing about Redux
+
+# Initial app structure
