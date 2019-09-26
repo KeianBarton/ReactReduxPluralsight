@@ -73,3 +73,39 @@ Setup React Router and navigation
 
 <Link> combined with react-router-dom allows you to make React links handled by client side
 <NavLink> for navigation bar links handled by client side
+
+# Intro to Redux
+
+## Do I need Redux?
+
+If you have a complex component tree with different components needing the same data - 3 solutions:
+
+1. Lift state to a common ancestor (e.g. top-level component) - e.g. prop drilling
+2. React context - needs context imported to consume it (not technically global)
+3. Redux - centralised store (like a local client side database) - components can dispatch actions to it, the store is updated and any components using that data re-render
+
+Useful for complex data flows, inter-component communication, non-hierarchical data, many (CRUD) actions, same data used in my many places
+
+## 3 principles
+
+- One immutable store
+- Actions trigger changes
+- Reducers update state (reducers are just a function that accept the current state and an action and returns the new state)
+
+## Flux vs Redux
+
+Data flows down - actions flow up
+Both utilise unidirectional flow, actions and stores
+
+- Flux uses a singleton dispatcher to connect actions to stores. Stores use eventEmitter to connect to the dispatcher. Redux doesn't have a dispatcher - it relies on reducers.
+- Store and change logic are separate in Redux (not the same in Flux)
+
+## Redux Flow Overview
+
+e.g.
+
+- Action { type: RATE_COURSE, rating: 5 }
+- Reducer function appReducer (state = defaultState, action) { switch(action.type) { case RATE_COURSE: ... }}
+- Components are notified via the React-Redux companion library
+
+# Actions, Stores, and Reducers
