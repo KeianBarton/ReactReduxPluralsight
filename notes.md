@@ -68,3 +68,8 @@ Container (smart) components have state and little to no DOM markup - they typic
 Presentation (dumb) components are nearly all markup with often no state - receive data / actions via props - know nothing about Redux
 
 # Initial app structure
+
+Setup React Router and navigation
+
+<Link> combined with react-router-dom allows you to make React links handled by client side
+<NavLink> for navigation bar links handled by client side
