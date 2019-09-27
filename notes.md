@@ -56,10 +56,10 @@ ESLint package.json options:
 
 # React component approaches
 
-- createClass (mostly out of use - React.createClass({ ... }))
-- ES class (class extends React.Component)
-- Function (function HelloWorld(props) { ... })
-- Arrow function ( const foo = (props) => <>..</> )
+- createClass (mostly out of use - `React.createClass({ ... })`)
+- ES class (`class extends React.Component`)
+- Function (`function HelloWorld(props) { ... }`)
+- Arrow function ( `const foo = (props) => <>..</>` )
 
 Functional component benefits:
 Easier to understand; Avoid "this" keyword; Less transpiled code; High signal-to-noise ratio; Easy to test / performance; Classes may be removed in future due to React Hooks
@@ -71,8 +71,8 @@ Presentation (dumb) components are nearly all markup with often no state - recei
 
 Setup React Router and navigation
 
-<Link> combined with react-router-dom allows you to make React links handled by client side
-<NavLink> for navigation bar links handled by client side
+`<Link>` combined with react-router-dom allows you to make React links handled by client side
+`<NavLink>` for navigation bar links handled by client side
 
 # Intro to Redux
 
@@ -104,8 +104,69 @@ Both utilise unidirectional flow, actions and stores
 
 e.g.
 
-- Action { type: RATE_COURSE, rating: 5 }
-- Reducer function appReducer (state = defaultState, action) { switch(action.type) { case RATE_COURSE: ... }}
+- Action `{ type: RATE_COURSE, rating: 5 }`
+- Reducer `function appReducer (state = defaultState, action) { switch(action.type) { case RATE_COURSE: ... }}`
 - Components are notified via the React-Redux companion library
 
 # Actions, Stores, and Reducers
+
+
+## Actions
+
+Actions are plain JS Objects containing a description of an event - it must have a type property
+`{ type: RATE_COURSE, rating: rating }`
+You can pass around any serializable (to JSON) data - so don't pass around functions or promises
+
+## Store
+
+`let store = createStore(reducer);`    in app entry point
+`store.dispatch(action), store.subscribe(listener), store.getState(), replaceReducer(nextReducer)`
+
+## Immutability
+
+In JS, the following are immutable (so new copied are created when you change value):
+Number, String, Boolean, Undefined, Null
+The following are mutable:
+Objects, Arrays, Functions
+
+Ways to copy objects. The following are shallow copies (so be careful to copy any nested objects if their values are changing - if not, avoid to avoid expensive re-renders)
+- `Object.assign({}, state, { role: 'admin' });`   copy state object into {}, changing role property to 'admin'
+- Spread operator    `const newState = { ...state, role: 'admin' };`  - copies into new object, changing role property to 'admin'  - also works for arrays `const newUsers = [...state.users]`
+- Immer - package that can handle data changes
+
+Arrays:
+- Prefer `map, filter, reduce, concat` and `spread`, but avoid `push, pop, reverse` unless you clone first
+
+Redux uses immutability for:
+- Clarity - you know state is changed in reducers and nowhere else
+- Performance - store can just do an object reference check in memory to see if state changed, rather than checking every property
+- Great debugging support
+
+To avoid mutating state (which will break Redux), you can install redux-immutable-state-invariant or make use of immutability packages like Immer
+
+## Reducers
+
+```javascript
+function myReducer(state, action) { 
+  switch(action.type)
+  {
+    case "INCREMENT_COUNTER":
+      return {...state, counter: state.counter + 1 };   // returns copy
+    default:
+      return state;
+  }
+}
+```
+These should be pure functions (that always return the same outputs given the same inputs). Never:
+- Mutate arguments
+- Perform side effects
+- Call non-pure functions
+
+*All reducers* are called on every dispatch - so you should always return the same state by default
+
+Each action can be handled by multiple reducers. Each reducer can handle multiple actions. So you don't need to write a 1-to-1 mapping between reducers and actions - "reducer composition".
+
+# Connecting React to Redux
+
+
+
