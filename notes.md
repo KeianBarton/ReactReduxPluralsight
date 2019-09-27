@@ -237,3 +237,6 @@ Combine reducers in redux/reducers/index.js
 Configure store in redux/configureStore.js - use applyMiddleware to add features to enhance Redux
 
 Use PropTypes in a component to provide what is expected to be pulled into to the props object of a component
+
+Reduce Boilerplate (more advanced topic)
+https://redux.js.org/recipes/reducing-boilerplate
