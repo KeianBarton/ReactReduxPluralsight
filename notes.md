@@ -168,5 +168,65 @@ Each action can be handled by multiple reducers. Each reducer can handle multipl
 
 # Connecting React to Redux
 
+react-redux is a separate library because Redux isn't exclusive to React
+- `Provider` component attaches app to store - utilised at app's root
+```javascript
+<Provider store={this.props.store}>
+  <App />
+</Provider>
+```
+- `Connect` function creates container components that connect to the store
+```javascript
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorPage);
+// Both parameters are typically functions and are optional
+```
+
+`mapStateToProps` - what state do you want to pass to your component as props? If any of the state changes, the component will re-render
+```javascript
+const mapStateToProps = (state) => { appState: state };
+// You can now access Redux store data at this.props.appState
+const mapStateToProps = (state) => { users: state.users };
+// You can now access each object key of users in this.props.user1 ...
+```
+Memoize for performance if expensive calculations in getting state (e.g. Reselect library)
+
+`mapDispatchToProps` - what actions do you want to pass to your component as props?
+Ways to handle mapDispatchToProps:
+1. Ignore it - i.e. do not use as second parameter in `connect` - `dispatch` will be available in your props at `this.props.dispatch(loadCourses())`
+2. Wrap manually the call to each action creator to access `this.props.loadCourses()`:
+```javascript
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadCourses: () => {
+      dispatch(loadCourses));
+    },
+    createCourse: (course) => {
+      dispatch(createCourse(course));
+    }
+  };
+}
+```
+3. `bindActionCreators` wraps dispatch calls for you - `this.props.actions.loadCourses();`
+```javascript
+const mapDispatchToProps = (dispatch) => { actions: bindActionCreators(actions, dispatch) };
+```
+4. `mapDispatchToProps` as an Object e.g.
+```javascript
+const mapDispatchToProps = { loadCourses };
+// In component:
+this.props.loadCourses();
+```
+
+## Chat wih Redux
+
+Undirectional data flow:
+- React: "Hey CourseAction, someone just clicked this Save Course button."
+- Action: "Thanks React! I will dispatch an action so that reducers that care can update state."
+- Reducer: "Ah, thanks Action. I see that you passed me the current state and the action to perform. I'll make a new copy of the state and return it."
+- Store: "Thanks for updating the state reducer. I'll make sure that all connected components are aware."
+- React-Redux: "Woah, thanks for that new data Mr. Store. I'll now intelligently determine if I should tell React about this change so that it only has to bother with updating the UI when it's necessary.
+- React: "Ooo, shiny new data that's been passed down via props from the store. I'll update the UI to reflect this."
+
+# Redux Flow
 
 
