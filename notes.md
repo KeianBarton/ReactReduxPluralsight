@@ -229,4 +229,11 @@ Undirectional data flow:
 
 # Redux Flow
 
+Typically save files under src/redux/actions, src/redux/reducers ...
+In this course, the data structure is simplified, but you should normalise state shape so your store acts more closely to a relational database: https://redux.js.org/recipes/structuring-reducers/normalizing-state-shape
 
+Combine reducers in redux/reducers/index.js
+
+Configure store in redux/configureStore.js - use applyMiddleware to add features to enhance Redux
+
+Use PropTypes in a component to provide what is expected to be pulled into to the props object of a component
