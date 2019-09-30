@@ -6,6 +6,8 @@ const courseReducer = (state = [], action) => {
       // Redux Flow part 3 - debugger;
       // state.push(action.course); - don't do this - mutating state
       return [...state, { ...action.course }];
+    case types.LOAD_COURSES_SUCCESS:
+      return action.courses;
     default:
       return state;
   }

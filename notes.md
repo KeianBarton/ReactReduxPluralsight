@@ -240,3 +240,40 @@ Use PropTypes in a component to provide what is expected to be pulled into to th
 
 Reduce Boilerplate (more advanced topic)
 https://redux.js.org/recipes/reducing-boilerplate
+
+# Async in Redux
+
+## Mock API
+
+Added mock API and tools to the 'tools' folder by copying Cory's example - uses JSON Server
+Any package.json scrips that start wtih "pre" run before their non-pre equivalents (e.g. prestart:api and start:api)
+
+The run-p command of the npm-run-all package will run multiple npm scripts concurrently
+
+Added API files by copying Cory's example to src/api that utilises 'fetch' - the API url is set into the webpack.config.dev.js
+
+## Redux Middleware
+
+Redux Middleware occurs beween dispatching an action and when it reaches a reducer.
+You probably won't need to write your own middleware.
+
+Redux Async Libraries:
+- Redux-Thunk - Return functions from action creators
+- Redux-Promise - Use promises for async
+- Redux-Observable - Use RxJS observables
+- Redux-Saga - Use generators
+
+## Thunk Introduction
+
+Thunk: A function that wraps an expression to delay its evaluation.
+Recall that actions are just simple JS objects. To make them do somehing (e.g. API call), we can use Redux-Thunk which is a middleware that looks at every action passing through the system - if it's a function, it evaluates it.
+Your components can then call sync and async actions the same way.
+
+We add Thunk to the configureStore.js file.
+
+## Action naming conventions
+
+Common convention to use the following names of action creators:
+- loadCourses         type - LOAD_COURSES
+- loadCoursesSuccess  type - LOAD_COURSES_SUCCESS
+- loadCoursesFailure  type - LOAD_COURSES_FAILURE   (or error)
