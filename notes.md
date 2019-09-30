@@ -280,4 +280,8 @@ Common convention to use the following names of action creators:
 
 ## Implementing Async Redux
 
-Don't forget when adding a new action and reducer, to update the root reducer
+- Don't forget when adding a new action and reducer, to update the root reducer
+- Centrailise initial Redux state into reducers in initialState.js - helps less hardcoded empty arrays, but also helps developers understand the overall application's structure
+
+# Async writes in Redux
+

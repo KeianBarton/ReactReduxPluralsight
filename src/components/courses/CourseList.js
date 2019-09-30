@@ -27,7 +27,7 @@ const CourseList = ({ courses }) => (   // equivalent to (props) => { const {cou
             <td>
               <Link to={`/course/${course.slug}`}>{course.title}</Link>
             </td>
-            <td>{course.authorId}</td>
+            <td>{course.authorName}</td>
             <td>{course.category}</td>
           </tr>
         );
