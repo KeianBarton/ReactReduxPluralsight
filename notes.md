@@ -277,3 +277,7 @@ Common convention to use the following names of action creators:
 - loadCourses         type - LOAD_COURSES
 - loadCoursesSuccess  type - LOAD_COURSES_SUCCESS
 - loadCoursesFailure  type - LOAD_COURSES_FAILURE   (or error)
+
+## Implementing Async Redux
+
+Don't forget when adding a new action and reducer, to update the root reducer
