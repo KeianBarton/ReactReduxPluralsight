@@ -5,6 +5,7 @@ import AboutPage from "./about/AboutPage";
 import CoursesPage from "./courses/CoursesPage";
 import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
+import ManageCoursePage from "./courses/ManageCoursePage";
 
 const App = () => (
   <div className="container-fluid">
@@ -17,6 +18,10 @@ const App = () => (
       <Route exact path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/courses" component={CoursesPage} />
+      {/* slugs are like IDs but friendlier to read*/}
+      {/* Declare more specific routes first as only one route in Switch can match*/}
+      <Route path="/course/:slug" component={ManageCoursePage} />
+      <Route path="/course/" component={ManageCoursePage} />
       <Route component={PageNotFound} />
     </Switch>
   </div>

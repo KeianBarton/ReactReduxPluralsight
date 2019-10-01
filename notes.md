@@ -285,3 +285,7 @@ Common convention to use the following names of action creators:
 
 # Async writes in Redux
 
+The formal term for `const { foo } = bla;` is destructuring
+
+Avoid using Redux for all state. Use plain React state for data only a few components use (such as forms) - use Redux for more global values
+
