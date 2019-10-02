@@ -289,3 +289,13 @@ The formal term for `const { foo } = bla;` is destructuring
 
 Avoid using Redux for all state. Use plain React state for data only a few components use (such as forms) - use Redux for more global values
 
+# Redirect
+
+You can add Redirect using the React Router Redirect tag - when rendered, it causes a redirect on the page.
+You can also use history to cause a redirect. Any component loaded via a `<Route>` gets history passed in on props from React Router.
+
+# Populate form for existing entity
+
+mapStateToProps has an `ownProps` field that lets us access the component's props e.g. access URL parameters
+Recall that it runs every time the Redux store state changes
+

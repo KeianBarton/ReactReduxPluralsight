@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loadCourses, saveCourse } from "../../redux/actions/courseActions";
 import { loadAuthors } from "../../redux/actions/authorActions";
@@ -13,23 +14,28 @@ const ManageCoursePage = ({
   loadCourses,
   loadAuthors,
   saveCourse,
+  //history,
   ...props
 }) => {
   const [course, setCourse] = useState({ ...props.course });
   const [errors, setErrors] = useState({});
+  const [redirectToCoursesPage, setRedirectToCoursesPage] = useState(false);
 
   useEffect(() => {
     if (courses.length === 0) {
       loadCourses().catch(error => {
         alert("Loading courses failed" + error);
       });
+    } else {
+      setCourse({ ...props.course });
     }
+    
     if (authors.length === 0) {
       loadAuthors().catch(error => {
         alert("Loading authors failed" + error);
       });
     }
-  }, []);
+  }, [props.course]);
 
   const handleChange = event => {
     // Destructuring avoids the event getting garbage collected
@@ -43,19 +49,25 @@ const ManageCoursePage = ({
     }));
   };
 
-  const handleSave = (event) => {
+  const handleSave = event => {
     event.preventDefault();
-    saveCourse(course);
-  }
+    saveCourse(course).then(() => {
+      //history.push("/courses");
+      setRedirectToCoursesPage(true);
+    });
+  };
 
   return (
-    <CourseForm
-      course={course}
-      errors={errors}
-      authors={authors}
-      onChange={handleChange}
-      onSave={handleSave}
-    />
+    <>
+      <CourseForm
+        course={course}
+        errors={errors}
+        authors={authors}
+        onChange={handleChange}
+        onSave={handleSave}
+      />
+      {redirectToCoursesPage && <Redirect to="/courses" />}
+    </>
   );
 };
 
@@ -66,11 +78,21 @@ ManageCoursePage.propTypes = {
   loadAuthors: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired
+  //history: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
+export const getCourseBySlug = (courses, slug) => {
+  return courses.find(course => course.slug === slug) || null;
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const slug = ownProps.match.params.slug; // see slug parameter in App.js routing
+  const course =
+    slug && state.courses.length > 0
+      ? getCourseBySlug(state.courses, slug)
+      : newCourse;
   return {
-    course: newCourse,
+    course,
     courses: state.courses,
     authors: state.authors
   };
