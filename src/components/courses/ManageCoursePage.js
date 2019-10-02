@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import CourseForm from "./CourseForm";
 import { newCourse } from "../../../tools/mockData";
 import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 // Using ...props at the end assigns any properties not destructured to an object called props
 const ManageCoursePage = ({
@@ -55,6 +56,7 @@ const ManageCoursePage = ({
     event.preventDefault();
     setSaving(true);
     saveCourse(course).then(() => {
+      toast.success("Course saved.");
       //history.push("/courses");
       setRedirectToCoursesPage(true);
     });

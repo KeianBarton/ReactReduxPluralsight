@@ -304,3 +304,5 @@ Recall that it runs every time the Redux store state changes
 You can simulate a delay on all requests by modifying `apiServer.js`
 
 Remember that an action can be handled by multiple reducers.
+
+react-toastify is used for Toaster notifications.
