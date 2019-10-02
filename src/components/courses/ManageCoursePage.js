@@ -6,6 +6,7 @@ import { loadAuthors } from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import CourseForm from "./CourseForm";
 import { newCourse } from "../../../tools/mockData";
+import Spinner from "../common/Spinner";
 
 // Using ...props at the end assigns any properties not destructured to an object called props
 const ManageCoursePage = ({
@@ -20,6 +21,7 @@ const ManageCoursePage = ({
   const [course, setCourse] = useState({ ...props.course });
   const [errors, setErrors] = useState({});
   const [redirectToCoursesPage, setRedirectToCoursesPage] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (courses.length === 0) {
@@ -29,7 +31,7 @@ const ManageCoursePage = ({
     } else {
       setCourse({ ...props.course });
     }
-    
+
     if (authors.length === 0) {
       loadAuthors().catch(error => {
         alert("Loading authors failed" + error);
@@ -51,13 +53,16 @@ const ManageCoursePage = ({
 
   const handleSave = event => {
     event.preventDefault();
+    setSaving(true);
     saveCourse(course).then(() => {
       //history.push("/courses");
       setRedirectToCoursesPage(true);
     });
   };
 
-  return (
+  return authors.length === 0 || courses.length === 0 ? (
+    <Spinner />
+  ) : (
     <>
       <CourseForm
         course={course}
@@ -65,6 +70,7 @@ const ManageCoursePage = ({
         authors={authors}
         onChange={handleChange}
         onSave={handleSave}
+        saving={saving}
       />
       {redirectToCoursesPage && <Redirect to="/courses" />}
     </>

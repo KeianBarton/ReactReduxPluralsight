@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import * as courseApi from "../../api/courseApi";
+import { beginApiCall } from "./apiStatusActions";
 
 // export const createCourse = course => {
 //   // Redux Flow part 2 - debugger;
@@ -23,6 +24,7 @@ export const updateCourseSuccess = course => {
 
 export const loadCourses = () => {
   return dispatch => {
+    dispatch(beginApiCall());
     return courseApi
       .getCourses()
       .then(courses => {
@@ -37,6 +39,7 @@ export const loadCourses = () => {
 export const saveCourse = (course) => {
   //eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {  // All of Redux store state inside getState if needed
+    dispatch(beginApiCall());
     return courseApi
       .saveCourse(course)
       .then(savedCourse => {
