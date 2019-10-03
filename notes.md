@@ -309,3 +309,19 @@ Optimistic deletes send API to delete asynchonously and assume it succeeds:
 - Confusing UX if call fails
 
 Async / await is an alternative approach to handling errors as opposed to JS promises - it uses promises behind the scenes so can easily interact with code that uses promises
+
+# Testing React
+
+Popular frameworks: Jest, Mocha, Jasmine, Tape, AVA
+Helper Libraries: React Test Utils, Enzyme, React testing library
+
+## Jest
+
+- Run with `npm t` or `npm test` or `npm run test`
+- Jest automatically finds tests in files that end with `.test.js` or `.spec.js`
+- Jest will re-run tests when making changes if using the `--watch` parameter
+- Settings in package.json tells Jest to ignore imports for file types such as images and sounds
+- Snapshots are saved after test runs into __snapshots__ folder - the VS Code extension `snapshot-tools` allows you to highlight the "toMatchSnapshot" function and investigate the snapshot's contents without navigating to the file. If somebody makes a code change that changes how the snapshot looks, these tests will fail - you can then use "u" on the command line to update the code if needed to match the snapshot - stops accidental changes. Name snapshots well so other developers are clear what the expected output is
+
+## Enzyme
+
