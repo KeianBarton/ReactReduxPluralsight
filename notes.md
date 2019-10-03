@@ -302,7 +302,10 @@ Recall that it runs every time the Redux store state changes
 # Async Status and Error Handling
 
 You can simulate a delay on all requests by modifying `apiServer.js`
-
 Remember that an action can be handled by multiple reducers.
-
 react-toastify is used for Toaster notifications.
+Optimistic deletes send API to delete asynchonously and assume it succeeds:
+- Better UX when call succeeds
+- Confusing UX if call fails
+
+Async / await is an alternative approach to handling errors as opposed to JS promises - it uses promises behind the scenes so can easily interact with code that uses promises
