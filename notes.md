@@ -361,3 +361,12 @@ Integration test covering a lot of surface area without a lot of code or brittle
 Testing the integration of the action creators, the store and the reducer - see `store.test.js`
 
 # Production Builds
+
+Aim to write final production build to build folder in 3 files - index.html, bundle.js, styles.css
+See the following files:
+- configureStore.js (uses Node's CommonJS to load in the right store depending on build)
+- webpack.config.prod.js
+- package.json - build script - uses rimraf to clean build folder (post___ will run after the corresponding script analogous to pre)
+Run with "npm run build"
+
+Remember to configure your webserver to direct all requests to index.html. This way React Router can handle all requests
