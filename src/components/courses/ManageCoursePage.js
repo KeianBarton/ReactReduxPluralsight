@@ -10,7 +10,8 @@ import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
 // Using ...props at the end assigns any properties not destructured to an object called props
-const ManageCoursePage = ({
+// exported to allow testing
+export const ManageCoursePage = ({
   courses,
   authors,
   loadCourses,

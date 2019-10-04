@@ -334,3 +334,30 @@ Helper Libraries: React Test Utils, Enzyme, React testing library
 - There is no shallow rendering - components are always mounted (via JSDOM)
 - getBy* is combined with assertions and used to encourage testing what an end-user may "see" over implementation details
 
+# Testing Redux
+
+## Testing connected React component
+
+Container components export the component wrapped with connect `export default connect(..,..)(ManageCoursePage)` which makes them trickier to test. Either:
+1. Wrap with `<Provider>`
+2. Add named export for unconnected component (simpler)
+Examples given in ManageCoursePage.test.js
+
+## Testing Action Creators
+
+Just need to test an action returns the expected object
+
+## Testing Thunks
+
+To test thunks, we need to mock a store (redux-mock-store) and any HTTP calls (fetch-mock)
+
+## Testing reducers
+
+Test given an input state and action, assert the new state is as expected
+
+## Testing the store
+
+Integration test covering a lot of surface area without a lot of code or brittleness
+Testing the integration of the action creators, the store and the reducer - see `store.test.js`
+
+# Production Builds
