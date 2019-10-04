@@ -325,3 +325,12 @@ Helper Libraries: React Test Utils, Enzyme, React testing library
 
 ## Enzyme
 
+- See testSetup.js - Enzyme needs an adapter for the particular version of React used
+- Jest will run any files within the setupFiles of package.json
+- Shallow rendering - fast, lightweight - test one component in isolation; Mount rendering - more realistic - render component and children via JSDOM
+
+## React testing library
+
+- There is no shallow rendering - components are always mounted (via JSDOM)
+- getBy* is combined with assertions and used to encourage testing what an end-user may "see" over implementation details
+
